@@ -30,6 +30,15 @@ const api = (function () {
       }),
       body: JSON.stringify(updateData),
     };
+  
+    const deleteItem = function (id, updateData) {
+      const options = {
+        method: 'DELETE',
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(updateData),
+      };
 
     return fetch(`${BASE_URL}/items/${id}`,options);
   };
@@ -37,6 +46,7 @@ const api = (function () {
     getItems,
     createItem,
     updateItem,
+    deleteItem
   }
 
 }());
