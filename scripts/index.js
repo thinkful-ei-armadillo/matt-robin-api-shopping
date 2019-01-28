@@ -3,13 +3,12 @@
 
 $(document).ready(function () {
   api.getItems()
-  .then(res => res.json())
-  .then((items) => {
-    items.forEach((item) => store.addItem(item));
-    shoppingList.render();
+    .then(res => res.json())
+    .then((items) => {
+      items.forEach((item) => store.addItem(item));
+      shoppingList.render();
   });
   shoppingList.bindEventListeners();
-
 });
 
 

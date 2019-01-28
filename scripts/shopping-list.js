@@ -85,14 +85,22 @@ const shoppingList = (function(){
   function handleItemCheckClicked() {
     $('.js-shopping-list').on('click', '.js-item-toggle', event => {
       const id = getItemIdFromElement(event.currentTarget);
-      api.updateItem(id, {checked : !this.checked})
+      console.log(id);
+      const reverse = store.findById(id).checked ? false : true;
+      console.log(reverse); 
+      api.updateItem(id, { checked : reverse})
+        api.getItems()
         .then(res => res.json())
-        .then(resJson => { 
-          store.findAndToggleChecked(id)
-          render();
-          console.log(resJson);}
+        .then(resJson => {
+          store.findAndToggleChecked(id);
+          render()})
+        // .then(results => results.json())
+        // .then(resultsJ => console.log(resultsJ))
+          // store.findAndToggleChecked(id)
+          // render();
+          // console.log(resJson);}
       // store.findAndToggleChecked(id);
-        )})
+  })
   }
   
   function handleDeleteItemClicked() {
