@@ -30,18 +30,21 @@ const api = (function () {
       }),
       body: JSON.stringify(updateData),
     };
+    return fetch(`${BASE_URL}/items/${id}`,options);
+  }
   
-    const deleteItem = function (id, updateData) {
+    const deleteItem = function (id) {
       const options = {
         method: 'DELETE',
-        headers: new Headers({
-          'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify(updateData),
+        // headers: {
+        //   'Content-Type': 'application/json'
+        // },
+    
       };
-
+    
     return fetch(`${BASE_URL}/items/${id}`,options);
   };
+
   return {
     getItems,
     createItem,
