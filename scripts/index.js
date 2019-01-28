@@ -1,13 +1,20 @@
-/* global shoppingList, store */
+'use strict';
+/* global shoppingList, store,api,Item,$ */
 
-$(document).ready(function() {
+$(document).ready(function () {
   shoppingList.bindEventListeners();
   shoppingList.render();
 });
 
 store.items.push(Item.create('apples'));
-api.getItems()
-  .then(res => res.json())
-  .then(responseJson => console.log(responseJson));
 
-console.log(api.BASE_URL);
+api.createItem('pears')
+  .then(res => res.json())
+  .then((newItem) => {
+    return api.getItems();
+  })
+  .then(res => res.json())
+  .then(((items) => {
+    console.log(items);
+  });
+});
