@@ -87,12 +87,12 @@ const shoppingList = (function(){
       const id = getItemIdFromElement(event.currentTarget);
       api.updateItem(id, {checked : !this.checked})
         .then(res => res.json())
-        .then(resJson => 
-          store.findAndToggleChecked(id);
+        .then(resJson => { 
+          store.findAndToggleChecked(id)
           render();
-          console.log(resJson);
+          console.log(resJson);}
       // store.findAndToggleChecked(id);
-    });
+        )})
   }
   
   function handleDeleteItemClicked() {
