@@ -68,11 +68,15 @@ const shoppingList = (function(){
       const newItemName = $('.js-shopping-list-entry').val();
       $('.js-shopping-list-entry').val('');
       api.createItem(newItemName)
-        .then(res=> res.json())
-        .then(resJSON => {
-          store.addItem(resJSON);
-          render();
+        .then(data => {
+          store.addItem(data);
+          render()
         });
+        // .then(res=> res.json())
+        // .then(resJSON => {
+        //   store.addItem(resJSON);
+        //   render();
+        
     });
   }
   
@@ -108,11 +112,9 @@ const shoppingList = (function(){
       const id = getItemIdFromElement(event.currentTarget);
       // delete the item
      api.deleteItem(id);
-
-
-      store.findAndDelete(id);
+     store.findAndDelete(id);
       // render the updated shopping list
-      render();
+     render();
     });
   }
   

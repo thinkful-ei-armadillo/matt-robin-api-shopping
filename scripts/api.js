@@ -6,6 +6,31 @@ const api = (function () {
     return fetch(`${BASE_URL}/items`);
   };
 
+  function listApiFetch(...args) {
+    let error = false;
+    return fetch(...args)
+      .then(res => {
+        if (!res.ok) {
+          // Valid HTTP response but non-2xx status - let's flag an error!
+          error = true;
+        }
+
+        // In either case, parse the JSON stream:
+        return res.json();
+      })
+
+      .then(data => {
+        // If error was flagged, throw an error with the JSON message
+        if (error) throw new Error(data.message);
+
+        // Otherwise, return the data (all promise chains 
+        // return promise objects)
+        return data;
+      })
+
+      .catch(err => alert(err.message));
+  }
+
   const createItem = function (name) {
     const newItem = {
       name: name,
@@ -19,9 +44,10 @@ const api = (function () {
       body: JSON.stringify(newItem),
     }
 
-    return fetch(`${BASE_URL}/items`, options);
+    return listApiFetch(`${BASE_URL}/items`, options);
 
   };
+
   const updateItem = function (id, updateData) {
     const options = {
       method: 'PATCH',
@@ -30,19 +56,14 @@ const api = (function () {
       }),
       body: JSON.stringify(updateData),
     };
-    return fetch(`${BASE_URL}/items/${id}`,options);
+    return listApiFetch(`${BASE_URL}/items/${id}`, options);
   }
-  
-    const deleteItem = function (id) {
-      const options = {
-        method: 'DELETE',
-        // headers: {
-        //   'Content-Type': 'application/json'
-        // },
-    
-      };
-    
-    return fetch(`${BASE_URL}/items/${id}`,options);
+
+  const deleteItem = function (id) {
+    const options = {
+      method: 'DELETE',
+    };
+    return listApiFetch(`${BASE_URL}/items/${id}`, options);
   };
 
   return {
