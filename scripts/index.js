@@ -14,7 +14,7 @@ api.createItem('pears')
     return api.getItems();
   })
   .then(res => res.json())
-  .then(((items) => {
+  .then(items => {
     console.log(items);
   });
-});
+
