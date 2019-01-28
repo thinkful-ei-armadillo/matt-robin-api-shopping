@@ -3,7 +3,7 @@
 const api = (function () {
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/matt';
   const getItems = function () {
-    return fetch(`${this.BASE_URL}/items`);
+    return fetch(`${BASE_URL}/items`);
   };
 
   const createItem = function(name){
@@ -21,6 +21,7 @@ const api = (function () {
 
   };
   return {
-    getItems,createItem
+    getItems,
+    createItem
   }
 }());
