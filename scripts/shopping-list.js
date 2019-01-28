@@ -85,8 +85,13 @@ const shoppingList = (function(){
   function handleItemCheckClicked() {
     $('.js-shopping-list').on('click', '.js-item-toggle', event => {
       const id = getItemIdFromElement(event.currentTarget);
-      store.findAndToggleChecked(id);
-      render();
+      api.updateItem(id, {checked : !this.checked})
+        .then(res => res.json())
+        .then(resJson => 
+          store.findAndToggleChecked(id);
+          render();
+          console.log(resJson);
+      // store.findAndToggleChecked(id);
     });
   }
   
@@ -107,9 +112,19 @@ const shoppingList = (function(){
       event.preventDefault();
       const id = getItemIdFromElement(event.currentTarget);
       const itemName = $(event.currentTarget).find('.shopping-item').val();
-      store.findAndUpdateName(id, itemName);
-      store.setItemIsEditing(id, false);
-      render();
+      let error = false;
+      api.updateItem(id, itemName)
+        .then(res=> {
+          // if(!res.ok){
+          // error = true;
+          // } 
+          res.json()})
+        .then(resJSON => {
+          store.findAndUpdateName(id, itemName);
+          store.setItemIsEditing(id, false);
+          render()});
+        // .catch(error =>
+        //   console.log("test error", error.message));
     });
   }
   

@@ -22,7 +22,7 @@ const store = (function(){
 
   const findAndUpdate = function (id, newData) {
     const foundItem = this.items.find(el => el.id === id);
-    return Object.assign(foundItem, newData);
+    Object.assign(foundItem, newData);
   };
 
   // const findAndUpdateName = function(id, name) {
