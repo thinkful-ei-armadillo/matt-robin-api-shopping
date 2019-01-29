@@ -124,14 +124,14 @@ const shoppingList = (function(){
       const id = getItemIdFromElement(event.currentTarget);
       const itemName = $(event.currentTarget).find('.shopping-item').val();
       let error = false;
-      api.updateItem(id, itemName)
-        .then(res=> {
-          // if(!res.ok){
-          // error = true;
-          // } 
-          res.json()})
+      api.updateItem(id, {name: itemName})
+//         .then(res=> {
+//           // if(!res.ok){
+//           // error = true;
+//           // } 
+//           res.json()})
         .then(resJSON => {
-          store.findAndUpdateName(id, itemName);
+          store.findAndUpdateName(id, {name: itemName});
           store.setItemIsEditing(id, false);
           render()});
         // .catch(error =>
